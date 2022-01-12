@@ -1,0 +1,61 @@
+@import "variables.scss";
+
+.navbar {
+  display: flex;
+  align-items: $align-variant-center;
+  flex-wrap: $flex-warp;
+  border-bottom: $border-variant-main;
+
+  @media (max-width: 800px) {
+    font-size: $font-size-variant-mobile;
+  }
+
+  .logo {  
+    span {
+      @media (max-width: 800px) {
+        display: none;
+      }
+    }
+  
+    h1 {
+      padding: 0 2rem 0 2rem;
+      margin: $margin-variant-zero;
+      border-right: $border-variant-main;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      font-weight: $font-weight-variant-normal;
+
+      @media (max-width: 800px) {
+        padding: 0 1rem 0 1rem;
+      }
+    }
+
+    @media (max-width: 800px) {
+      font-size: 1rem;
+    }
+  }
+  
+  .logo:hover {
+    color: map-get($custom-colors, blue-1);
+    cursor: pointer;
+  }
+
+  .menu {
+    display: inline;
+    ul{    
+      position: static;
+      top: 0;
+      margin: 0;
+      padding: 0.5rem 0 0.5rem 1rem;
+    }
+  
+    li {
+      display: inline;
+      padding: 1rem;
+
+      @media (max-width: 800px) {
+        padding: 0.5rem;
+      }
+    }
+  }
+}

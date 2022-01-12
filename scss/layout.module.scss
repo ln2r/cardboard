@@ -1,0 +1,161 @@
+@import "variables.scss";
+
+.button {
+  font-weight: $font-weight-variant-bold;
+  color: map-get($custom-colors, blue-1);
+  border: 0;
+  background-color: map-get($custom-colors, grey-7);
+  padding: $padding-variant-zero;
+}
+
+.button:hover {
+  background-color: map-get($custom-colors, grey-7);
+  color: map-get($custom-colors, blue-1)
+}
+
+.directory, .main {
+  padding: 3rem 0;
+  justify-content: $align-variant-center;
+  align-items: $align-variant-center;
+
+  @media (max-width: 800px) {
+    padding: $padding-variant-sides-mobile;
+    font-size: $font-size-variant-mobile;
+  }
+}
+
+
+.directory, .main, .object, .editor_container {
+  .header {
+    word-wrap: break-word;  
+    font-size: $font-size-variant-small;
+  
+    @media (max-width: 800px) {
+      font-size: $font-size-variant-header-mobile;
+      padding: $padding-variant-mobile;
+    }
+  
+    h1, a{
+      color: map-get($custom-colors, blue-1);
+      margin: $margin-variant-zero;
+    }
+  
+    a {
+      font-weight: $font-weight-variant-bold;
+    }
+  
+    h1 {
+      font-weight: $font-weight-variant-normal;
+    }
+  }
+}
+
+.object {
+  padding: $padding-variant-zero;
+  margin: $margin-variant-zero;
+
+  .content_container, .header_container {
+    height: 100vh;
+    padding: $padding-variant-zero;
+  }
+
+  .content_container {
+    background-color: map-get($custom-colors, grey-5);
+    padding: 1rem;
+
+    img, video, textarea, .pdfViewer { 
+      margin: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .header_container {
+    padding: 1rem;
+
+    h1, h2 {
+      margin-top: 1rem;
+      margin-bottom: $margin-variant-zero;
+      font-size: 1.5rem;
+      color: map-get($custom-colors, blue-1)
+    }
+
+    p {
+      margin: $margin-variant-zero;
+    }
+  }
+}
+
+// .content {
+//   padding: $padding-variant-normal;
+
+//   table {
+//     font-size: $font-size-variant-small;
+//     width: 100%;
+//     border-collapse: collapse;
+//     text-align: left;
+
+//     a {
+//       color: black;
+//     }
+//     a:hover{
+//       color: dodgerblue;
+//     }
+    
+//     th, td {
+//       border-bottom: $border-variant-secondary;
+//       padding: $padding-variant-small;
+//     }
+
+//     .tableHeaderPin {
+//       width: 50px;
+//       text-align: center;
+//     }
+
+//     .tableRowPin {
+//       text-align: center;
+//     }
+
+//     @media (max-width: 800px) {
+//       th, td {
+//         padding: $padding-variant-small;
+//       }
+
+//       .tableHeaderPin, .tableRowPin, .tableHeaderType, .tableRowType {
+//         display: none;
+//       }
+//     }
+//   }
+// }
+
+// .backToHome {
+//   margin: 3rem 0 0;
+// }
+
+// .footer {
+//   border-top: $border-variant-main;
+//   font-weight: $font-weight-variant-normal;
+//   padding: 0.5rem 0 2rem 0;
+
+//   code {
+//     color: $color-variant-secondary;
+//   }
+
+//   .author {
+//     float: left;
+//     font-size: $font-size-variant-xl;
+//   }
+
+//   .description {
+//     float: left;
+//     padding-left: $padding-variant-small;
+//     padding-bottom: 1rem;
+//     p {
+//       margin: $margin-variant-main;
+//     }
+//     a {
+//       color: $color-variant-secondary;
+//     }
+//   } 
+// }
+

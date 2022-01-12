@@ -1,0 +1,44 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "variables.scss";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: map-get($custom-colors, grey-1);
+  text-decoration: none;
+}
+
+a:hover {
+  color: map-get($custom-colors, blue-1);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.navbar {
+  background-color: map-get($custom-colors, blue-3);
+  
+  .container {
+    .navbar-brand {
+      color: map-get($custom-colors, grey-7);
+    }
+  
+    .nav-link {
+      color: map-get($custom-colors, grey-7);
+    }
+  }
+}

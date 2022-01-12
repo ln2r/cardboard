@@ -1,0 +1,30 @@
+@import "variables.scss";
+
+.header{
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+  word-wrap: break-word;
+
+  font-size: $font-size-variant-small;
+
+  @media (max-width: 800px) {
+    font-size: $font-size-variant-header-mobile;
+    padding: $padding-variant-mobile;
+  }
+
+  h1, a{
+    color: map-get($custom-colors, blue-1);
+    margin: $margin-variant-zero;
+  }
+
+  a {
+    font-weight: $font-weight-variant-bold;
+  }
+
+  h1 {
+    font-weight: $font-weight-variant-normal;
+  }
+
+  .metadata {
+    margin: $margin-variant-zero;
+  }
+}

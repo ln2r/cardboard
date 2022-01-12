@@ -1,0 +1,14 @@
+@import "variables.scss";
+
+.button {
+  color: map-get($custom-colors, blue-1);
+  font-weight: $font-weight-variant-bold;
+  border: 0;
+  background-color: map-get($custom-colors, grey-7);
+  padding: $padding-variant-zero;
+}
+
+.button:hover {
+  background-color: map-get($custom-colors, grey-7);
+  color: map-get($custom-colors, blue-1)
+}

@@ -1,0 +1,72 @@
+
+$letter-spacing-variant-heading: -0.05rem;
+
+$border-variant-main: 1px solid lightgray ;$border-variant-secondary: 1px solid lightgray;
+
+$align-variant-center: center;
+$flex-warp: wrap;
+
+$font-weight-variant-normal: 100;
+$font-weight-variant-bold: 600;
+$font-weight-variant-heading: 800;
+
+$font-size-variant-small: 0.8rem;
+$font-size-variant-normal: 0.9rem;
+$font-size-variant-large: 1.5rem;
+$font-size-variant-tiny: 0.7rem;
+$font-size-variant-header-mobile: 1rem;
+$font-size-variant-mobile: 0.8rem;
+$font-size-variant-large: 2rem;
+$font-size-variant-xl: 3rem;
+
+$margin-variant-zero: 0; 
+$margin-variant-small: 0.5rem;
+$margin-variant-normal: 1rem;
+$margin-variant-large: 1.5rem;
+$margin-variant-heading: 1rem 0 0;
+$margin-variant-top-bottom: 1rem 0 1rem 0;
+
+$padding-variant-zero: 0;
+$padding-variant-sides: 0 1rem 1rem;
+$padding-variant-sides-big: 0 5rem 0 5rem;
+$padding-variant-sides-mobile: 0 10px 0 10px;
+$padding-variant-top-bottom: 1rem 0 1rem 0;
+$padding-variant-small: 0.5rem;
+$padding-variant-normal: 1rem;
+$padding-variant-tiny: 0.2rem;
+$padding-variant-mobile: 0;
+
+$letter-spacing-variant-heading: -0.05rem;
+
+$font-weight-variant-heading: 800;
+$font-size-variant-small: 0.8rem;
+$font-size-variant-normal: 0.9rem;
+$font-size-variant-large: 1.5rem;
+$font-size-variant-header-mobile: 1rem;
+$font-size-variant-mobile: 0.8rem;
+
+$border-variant-main: 1px solid lightgray;
+$border-variant-secondary: 1px solid lightgray;
+$box-shadow-variant-primary: 1px 1px lightgray;
+$flex-warp: wrap;
+
+$custom-colors: (
+  "grey-1": #333333,
+  "grey-2": #4F4F4F,
+  "grey-3": #828282,
+  "grey-4": #BDBDBD,
+  "grey-5": #E0E0E0,
+  "grey-6": #F2F2F2,
+  "grey-7": #FFFFFF,
+  "red-1": #EB5757,
+  "orange-1": #F2994A,
+  "yellow-1": #F2C94C,
+  "green-1": #219653,
+  "green-2": #27AE60,
+  "grenn-3": #6FCF97,
+  "blue-1": #2F80ED,
+  "blue-2": #2D9CDB,
+  "blue-3": #56CCF2,
+  "purple-1": #9B51E0,
+  "purple-2": #BB6BD9,
+);
