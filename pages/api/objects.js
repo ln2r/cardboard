@@ -11,7 +11,7 @@ export default async function Handler(req, res) {
   switch(req.method) {
     case "POST":
       try {
-        let objects = []
+        const objects = []
         const path = (req.body.path == "root")? "" : req.body.path;
 
         // check if the object exist
@@ -47,7 +47,7 @@ export default async function Handler(req, res) {
           })
 
           // sorting with folder on top
-          const sorted = files => {
+          const sorted = (files) => {
             const copy = [];
             for (let i = 0; i - files.length; i ++) {
               if (!files[i].type.includes("folder")) {
