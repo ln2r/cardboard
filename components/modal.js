@@ -233,6 +233,7 @@ export default function ModalObject ({type, button, path}) {
                 <Accordion.Body>
                   <Form onSubmit={addFolder}>
                     <p>Adding folder in <strong>{path.join("\/")}</strong>/</p>
+                    <input hidden={true} name="path" value={path.join("\/")} readOnly={true}/>
                     <FloatingLabel label="Folder Name">
                       < Form.Control name="folder" />
                     </FloatingLabel>
