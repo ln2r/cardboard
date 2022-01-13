@@ -1,7 +1,5 @@
-import fs from 'fs'
-import path from 'path'
-
-const storageDir = path.join(process.cwd(), 'warehouse')
+import { readFileSync, statSync, createReadStream } from 'fs';
+import { STORAGE_DIRECTORY } from '../../consts/StoragegDirectory';
 
 export default async function handler(req, res) {
   const r = {
@@ -12,12 +10,12 @@ export default async function handler(req, res) {
   switch (req.method) {
     case "GET":     
       const filename = r.query.path.match(/[a-zA-Z1-9]*\.[a-zA-Z1-9]*/gm).pop();
-      const fileData = fs.readFileSync(`${storageDir}/${r.query.path}`, (err) => {
+      const fileData = readFileSync(`${STORAGE_DIRECTORY}/${r.query.path}`, (err) => {
         if (err) {
           return null
         };
       })
-      const stat = fs.statSync(`${storageDir}/${r.query.path}`)
+      const stat = statSync(`${STORAGE_DIRECTORY}/${r.query.path}`)
 
       if (!fileData) {
         res.status(404).json({
@@ -30,7 +28,7 @@ export default async function handler(req, res) {
           "Content-Disposition": `attachment; filename="${filename}"`
         })
         // using readstream
-        const fileStream = fs.createReadStream(`${storageDir}/${r.query.path}`)
+        const fileStream = createReadStream(`${STORAGE_DIRECTORY}/${r.query.path}`)
         await new Promise(function (resolve) {
           fileStream.pipe(res)
           fileStream.on('end', resolve)

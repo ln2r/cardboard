@@ -1,12 +1,10 @@
-import fs from 'fs'
-import path from 'path'
 import multer from 'multer'
-// import nextConnect from 'next-connect'
-// import { NextApiRequest, NextApiResponse } from 'next'
+
+import { existsSync, mkdirSync, writeFile, } from 'fs'
 
 import { getDatabase } from '../../libs/getDatabase'
 import { setDatabaseTable } from '../../libs/setDatabaseTable'
-const storageDir = path.join(process.cwd(), 'warehouse')
+import { STORAGE_DIRECTORY } from '../../consts/StoragegDirectory'
 
 export const config = {
   api: {
@@ -40,15 +38,15 @@ export default async function handler(req, res) {
 
           console.log(`[API] path: ${req.body.path}, author: ${req.body.author}, type: ${req.body.type}`);
 
-          const path = (req.body.path == "root")? `${storageDir}` : `${storageDir}\\${req.body.path.replace(/\//gm, "\\")}`;
+          const path = (req.body.path == "root")? `${STORAGE_DIRECTORY}` : `${STORAGE_DIRECTORY}\\${req.body.path.replace(/\//gm, "\\")}`;
           let newObjects = []    
 
           // creation
           switch (req.body.type) {
             // folder handler
             case "folder" :
-              if (!fs.existsSync(`${path}/${req.body.objects}`)){
-                fs.mkdirSync(`${path}/${req.body.objects}`);
+              if (!existsSync(`${path}/${req.body.objects}`)){
+                mkdirSync(`${path}/${req.body.objects}`);
                 
                 newObjects.push(`("${path}\\${req.body.objects}", "${req.body.author}", "${req.body.type}")`);
                 console.log(`[API] object added to database.`)
@@ -67,8 +65,8 @@ export default async function handler(req, res) {
             case "file": 
               req.files.forEach((request) => {
                 // only add if it doesnt exist
-                if (!fs.existsSync(`${path}/${req.body.objects}`)){
-                  fs.writeFile(`${path}/${request.originalname}`, request.buffer, err => {
+                if (!existsSync(`${path}/${req.body.objects}`)){
+                  writeFile(`${path}/${request.originalname}`, request.buffer, err => {
                     if (err) {
                       throw err;
                     }
@@ -93,7 +91,7 @@ export default async function handler(req, res) {
                   ObjectName = "${path.replace(/\//gm, "\\")}\\${req.body.filename}";
               `);
 
-              fs.writeFile(`${path}/${req.body.filename}.md`, req.body.content, err => {
+              writeFile(`${path}/${req.body.filename}.md`, req.body.content, err => {
                 if (err) {
                   throw err;
                 }
@@ -137,9 +135,9 @@ export default async function handler(req, res) {
         if (err) throw err;
         console.log(`[API] path: ${req.body.path}, author: ${req.body.author}, type: ${req.body.type}`);
 
-        const path = (req.body.path == "root")? `${storageDir}` : `${storageDir}\\${req.body.path.replace(/\//gm, "\\")}`;
+        const path = (req.body.path == "root")? `${STORAGE_DIRECTORY}` : `${STORAGE_DIRECTORY}\\${req.body.path.replace(/\//gm, "\\")}`;
         // creation
-        fs.writeFile(`${path}`, req.body.content, err => {
+        writeFile(`${path}`, req.body.content, err => {
           if (err) {
             throw err;
           }

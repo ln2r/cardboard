@@ -1,25 +1,23 @@
-import path from 'path'
-import fs from 'fs'
+import { rm, rmdir } from 'fs'
 
 import { getDatabase } from '../../libs/getDatabase'
 import { setDatabaseTable } from '../../libs/setDatabaseTable'
-
-const storageDir = path.join(process.cwd(), 'warehouse')
+import { STORAGE_DIRECTORY } from '../../consts/StoragegDirectory'
 
 export default async function handler(req, res) {
   switch (req.method) {
     case "DELETE":
       try {
         const object = req.body.path.replace(/\//gm, "\\")
-        const db = await getDatabase(`SELECT * FROM files WHERE ObjectName = "${storageDir}\\${object}";`)
+        const db = await getDatabase(`SELECT * FROM files WHERE ObjectName = "${STORAGE_DIRECTORY}\\${object}";`)
         if (db.length != 0) {
           if (req.body.type == "file") {
-            fs.rm(`${storageDir}\\${object}`, (err) => {
+            rm(`${STORAGE_DIRECTORY}\\${object}`, (err) => {
               if (err) throw err;
             })
           // recursivly deleting the folder
           } else {
-            fs.rmdir(`${storageDir}\\${object}`, {recursive: true}, (err) => {
+            rmdir(`${STORAGE_DIRECTORY}\\${object}`, {recursive: true}, (err) => {
               if (err) throw err;
             })
           }

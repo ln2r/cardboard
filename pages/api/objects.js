@@ -1,12 +1,13 @@
-import fs from 'fs'
-import path from 'path'
-import mime from 'mime'
 import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
 import gfm from 'remark-gfm'
 
-const storageDir = path.join(process.cwd(), 'warehouse')
+import { existsSync, readdirSync, statSync, readFileSync } from 'fs'
+import { getType } from 'mime'
+
+import { STORAGE_DIRECTORY } from '../../consts/StoragegDirectory'
+
 export default async function Handler(req, res) {
   switch(req.method) {
     case "POST":
@@ -15,7 +16,7 @@ export default async function Handler(req, res) {
         const path = (req.body.path == "root")? "" : req.body.path;
 
         // check if the object exist
-        if (!fs.existsSync(`${storageDir}/${path}`)) {
+        if (!existsSync(`${STORAGE_DIRECTORY}/${path}`)) {
           res.status(404).json({
             req: path,
             res: {
@@ -30,10 +31,10 @@ export default async function Handler(req, res) {
 
         // check if its folder or some "weird" file without extension
         if (!/\.[a-zA-Z0-9]*/gm.test(path)) {
-          const storage = fs.readdirSync(`${storageDir}/${path}`);
+          const storage = readdirSync(`${STORAGE_DIRECTORY}/${path}`);
 
           storage.forEach(object => {
-            let type = mime.getType(`${storageDir}/${path}/${object}`)
+            let type = getType(`${STORAGE_DIRECTORY}/${path}/${object}`)
 
             if (!type) {
               type = (!/\.[a-zA-Z0-9]*/gm.test(req.body.path))? "folder" : "file/unknown";
@@ -71,13 +72,13 @@ export default async function Handler(req, res) {
         // ordinary "objects" handler
         } else {
           let content;
-          const type = (mime.getType(`${storageDir}/${path}`))? mime.getType(`${storageDir}/${path}`) : "file/unknown";
-          const objectStats = fs.statSync(`${storageDir}/${path}`);
+          const type = (getType(`${STORAGE_DIRECTORY}/${path}`))? getType(`${STORAGE_DIRECTORY}/${path}`) : "file/unknown";
+          const objectStats = statSync(`${STORAGE_DIRECTORY}/${path}`);
           const creationTime = new Date(objectStats.birthtimeMs)
 
           // markdown file handler          
           if (type.includes("markdown")) {
-            const text = fs.readFileSync(`${storageDir}/${path}`, 'utf8');
+            const text = readFileSync(`${STORAGE_DIRECTORY}/${path}`, 'utf8');
 
             const matterResult = matter(text);
             const processed = await remark()
@@ -88,7 +89,7 @@ export default async function Handler(req, res) {
             content = processed.toString()
           // plain text handler
           } else if (type.includes('text/plain')) {
-            content = fs.readFileSync(`${storageDir}/${path}`, 'utf8');
+            content = readFileSync(`${STORAGE_DIRECTORY}/${path}`, 'utf8');
           
           // other object handler
           } else {

@@ -1,10 +1,8 @@
-import path from 'path'
+import { STORAGE_DIRECTORY } from '../../consts/StoragegDirectory';
 
 import { getDatabase } from '../../libs/getDatabase';
 import { getStorage } from '../../libs/getStorage';
 import { setDatabaseTable } from '../../libs/setDatabaseTable';
-
-const storageDir = path.join(process.cwd(), 'warehouse')
 
 export default async function handler(req, res) {
   // TODO:
@@ -13,7 +11,7 @@ export default async function handler(req, res) {
   switch (req.method) {
     case "GET":
       const filesDB = await getDatabase(`SELECT * FROM files;`);
-      const storage = await getStorage(storageDir)
+      const storage = await getStorage(STORAGE_DIRECTORY)
 
       let newObject = [];
       let newObjectValue = [];
