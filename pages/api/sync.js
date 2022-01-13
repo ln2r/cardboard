@@ -1,6 +1,9 @@
 import path from 'path'
 
-import { getDatabase, getStorageData, setTableData } from '../../lib/storage'
+import { getDatabase } from '../../libs/getDatabase';
+import { getStorage } from '../../libs/getStorage';
+import { setDatabaseTable } from '../../libs/setDatabaseTable';
+
 const storageDir = path.join(process.cwd(), 'warehouse')
 
 export default async function handler(req, res) {
@@ -10,7 +13,7 @@ export default async function handler(req, res) {
   switch (req.method) {
     case "GET":
       const filesDB = await getDatabase(`SELECT * FROM files;`);
-      const storage = await getStorageData(storageDir)
+      const storage = await getStorage(storageDir)
 
       let newObject = [];
       let newObjectValue = [];
@@ -55,7 +58,7 @@ export default async function handler(req, res) {
       })
 
       if (newObject.length != 0) {
-        setTableData(`
+        setDatabaseTable(`
           INSERT INTO 
             files (ObjectName, ObjectType, Owner)
           VALUES ${newObject.join(', ')};
@@ -64,14 +67,14 @@ export default async function handler(req, res) {
       
       if (oldObject.length != 0) {
         const currentIncrement =  await getDatabase(`SELECT seq FROM sqlite_sequence WHERE name = "files";`)
-        setTableData(`
+        setDatabaseTable(`
           DELETE FROM
             files
           WHERE ObjectId IN (${oldObject.join(', ')})
         `)
 
         // update the auto increment
-        setTableData(`
+        setDatabaseTable(`
           UPDATE 
             sqlite_sequence
           SET seq = ${currentIncrement[0].seq - oldObject.length}

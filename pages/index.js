@@ -1,23 +1,20 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import ModalObject from "../components/modal";
 import { Container, Row, Col } from 'react-bootstrap'
 
 import Layout, { currentUser, siteTitle } from '../components/layout'
-import { getContent } from '../lib/storage'
-import { getPinnedContent } from '../lib/addons'
+import ModalObject from "../components/modal";
 
 import styles from '../scss/layout.module.scss'
+import { getContent } from '../libs/getContent';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const listing = await getContent("root");
-  const pinned = await getPinnedContent(listing.contents);
 
   return {
     props: {
-      listing,
-      pinned
+      listing
     }
   }
 }
@@ -56,7 +53,7 @@ export function countObject(objects) {
   }
 }
 
-export default function Home({ pinned, listing }) {
+export default function Home({ listing }) {
   const router = useRouter()
   const slug = router.query.path || []
 
@@ -90,15 +87,9 @@ export default function Home({ pinned, listing }) {
               </tr>
             </thead>
             <tbody>
-              {(pinned.pinned.length == 0)? pinned.pinned.map(({name, type}) => {
-                return <tr key={`${name}-pinned-row`}>
-                  <td className="content-object-name"><Link href={`/[...path]`} as={`/${name}`}>{name}</Link></td>
-                  <td className="content-object-type">{type}</td>
-                </tr>
-              }) : ""}
-              {pinned.regular.map(({name, type}) => {
+              {listing.contents.map(({name, type}) => {
                 return <tr key={`${name}-row`}>
-                  <td className="content-object-name"><Link href={`/[...path]`} as={`/${name}`}>{name}</Link></td>
+                  <td className='content-object-name'><Link href={`/[...path]`} as={`/${name}`}>{name}</Link></td>
                   <td className="content-object-type">{type}</td>
                 </tr>
               })}

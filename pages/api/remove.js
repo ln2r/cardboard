@@ -1,7 +1,9 @@
 import path from 'path'
 import fs from 'fs'
 
-import { getDatabase, setTableData } from '../../lib/storage'
+import { getDatabase } from '../../libs/getDatabase'
+import { setDatabaseTable } from '../../libs/setDatabaseTable'
+
 const storageDir = path.join(process.cwd(), 'warehouse')
 
 export default async function handler(req, res) {
@@ -22,7 +24,7 @@ export default async function handler(req, res) {
             })
           }
 
-          await setTableData(`
+          await setDatabaseTable(`
             DELETE FROM
               files
             WHERE

@@ -5,10 +5,10 @@ import Router from 'next/router'
 import { Container, Form, Button } from 'react-bootstrap'
 import React from 'react'
 
-// import { getMarkdownData } from '../../../lib/storage'
 import Layout, { currentUser, siteTitle } from '../../../components/layout'
 // import utilStyles from '../../../scss/utils.module.scss'
 import styles from '../../../scss/layout.module.scss'
+import { setTitleFormat } from '../../../libs/addons'
 
 /**
  * TODO:
@@ -44,22 +44,6 @@ export default function Uploader() {
 
     // // throw user to the selected folder
     Router.push(`/${path}`)
-  }
-
-  function setTitleFormat(path){
-    const currentDirectory = path;
-    let links = []
-  
-    let currentLink = ``
-    for(let i=0; i<(currentDirectory.length - 1); i++) {
-      currentLink = `${currentLink}/${currentDirectory[i]}`;
-      links.push({
-        name: currentDirectory[i],
-        link: currentLink
-      }) 
-    }
-  
-    return links
   }
 
   return (

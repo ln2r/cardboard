@@ -7,11 +7,12 @@ import { Button, Container, Row, Col } from 'react-bootstrap'
 
 import Layout, { siteTitle } from '../components/layout'
 import styles from '../scss/layout.module.scss'
-import { getContent } from '../lib/storage'
+import { setTitleFormat } from '../libs/setTitleFormat'
+import { getContent } from '../libs/getContent'
 
 import { Document, Page, pdfjs } from "react-pdf"
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
+// import '../node_modules/react-pdf/dist/esm/Page/AnnotationLayer.css'
 
 // Dynamic routes can be extended to catch all paths by adding three dots (...) inside the brackets. For example:
 // https://nextjs.org/learn/basics/dynamic-routes/dynamic-routes-details
@@ -64,22 +65,6 @@ function countObject(objects) {
       return `${folders} folders, ${files} files.`
     }
   }
-}
-
-function setTitleFormat(path){
-  const currentDirectory = path;
-  let links = []
-
-  let currentLink = ``
-  for(let i=0; i<(currentDirectory.length - 1); i++) {
-    currentLink = `${currentLink}/${currentDirectory[i]}`;
-    links.push({
-      name: currentDirectory[i],
-      link: currentLink
-    }) 
-  }
-
-  return links
 }
 
 function onDocumentLoadSuccess({ numPages: nextNumPages }) {

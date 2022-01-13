@@ -1,16 +1,15 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import Image from 'next/image'
 
 import Layout, { currentUser, siteTitle } from '../../components/layout'
 import utilStyles from '../../scss/utils.module.scss'
-import { getSharedContent } from '../../lib/storage'
 
 import { Document, Page, pdfjs } from "react-pdf"
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
+import { getObjectCount } from '../../libs/addons'
+import { getSharedContent } from '../../libs/getSharedContent'
 
 export async function getServerSideProps({ params }) {
   const api = await getSharedContent(params.shareid, currentUser);
@@ -32,57 +31,6 @@ export async function getServerSideProps({ params }) {
       response
     }
   }
-}
-
-// TODO: move this to addons
-export function countObject(objects) {
-  let folders = 0;
-  let files = 0;
-  objects.forEach(object => {
-    if (object.type.includes("folder")) {
-      folders++;
-    } else {
-      files++;
-    }
-  })
-
-  if (folders == 0) {
-    if (files == 1) {
-      return `1 files.`
-    } else {
-      return `${files} files.`
-    }    
-  } else if (files == 0) {
-    if (folders == 1) {
-      return `1 folder.`
-    } else {
-      return `${folders} folders.`
-    }
-  } else {
-    if (folders == 1) {
-      return `1 folder, ${files} files.`
-    } else if (files == 1) {
-      return `${folders} folders, 1 file.`
-    } else {
-      return `${folders} folders, ${files} files.`
-    }
-  }
-}
-
-export function setTitleFormat(path){
-  const currentDirectory = path;
-  let links = []
-
-  let currentLink = ``
-  for(let i=0; i<(currentDirectory.length - 1); i++) {
-    currentLink = `${currentLink}/${currentDirectory[i]}`;
-    links.push({
-      name: currentDirectory[i],
-      link: currentLink
-    }) 
-  }
-
-  return links
 }
 
 export function onDocumentLoadSuccess({ numPages: nextNumPages }) {
@@ -212,7 +160,7 @@ export default function Shared({response}) {
           <br />
           <div className={utilStyles.meta__container}>
             <div className={utilStyles.meta}>
-              Contains: {countObject(response.object.contents)}
+              Contains: {getObjectCount(response.object.contents)}
             </div>
             {
               (response.permission == 0 || response.owner == {currentUser})? 

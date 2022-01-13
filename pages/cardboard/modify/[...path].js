@@ -3,12 +3,12 @@ import { useRouter } from 'next/router'
 import fetch from 'node-fetch'
 import Router from 'next/router'
 
-import { getMarkdownData } from '../../../lib/storage'
 import Layout, { currentUser, siteTitle } from '../../../components/layout'
 import utilStyles from '../../../scss/utils.module.scss'
+import { getMarkdownContent } from '../../../libs/getMarkdownContent'
 
 export function getServerSideProps({params}) {
-  const content = getMarkdownData(params.path.join("/"))
+  const content = getMarkdownContent(params.path.join("/"))
   if (content === "Not Found") {
     return {
       notFound: true

@@ -4,7 +4,8 @@ import multer from 'multer'
 // import nextConnect from 'next-connect'
 // import { NextApiRequest, NextApiResponse } from 'next'
 
-import { getDatabase, setTableData } from '../../lib/storage'
+import { getDatabase } from '../../libs/getDatabase'
+import { setDatabaseTable } from '../../libs/setDatabaseTable'
 const storageDir = path.join(process.cwd(), 'warehouse')
 
 export const config = {
@@ -107,7 +108,7 @@ export default async function handler(req, res) {
           }
 
           // adding files to db
-          await setTableData(`
+          await setDatabaseTable(`
             INSERT INTO
               files(ObjectName, Owner, ObjectType)
             VALUES

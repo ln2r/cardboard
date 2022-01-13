@@ -5,7 +5,7 @@ import ModalObject from '../../components/modal'
 
 import Layout, { currentUser, siteTitle } from '../../components/layout'
 import utilStyles from '../../scss/utils.module.scss'
-// import { getApiData } from '../../lib/storage'
+// import { getApiData } from '../../libs/storage'
 
 export async function getServerSideProps() {
   // const sync = await getApiData('/api/sync')

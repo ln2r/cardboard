@@ -1,4 +1,5 @@
-import { getDatabase, setTableData } from "../../../lib/storage";
+import { getDatabase } from "../../../libs/getDatabase";
+import { setDatabaseTable } from "../../../libs/setDatabaseTable";
 
 export default async function Handler (req, res) {
   switch (req.method) {
@@ -91,7 +92,7 @@ export default async function Handler (req, res) {
           }
 
           if (!found) {
-            await setTableData(`
+            await setDatabaseTable(`
               INSERT INTO 
                 shares(ShareId, Object, Owner, Permission)
               VALUES
@@ -137,7 +138,7 @@ export default async function Handler (req, res) {
         if (req.query.param[0] === "remove") {
           const db = await getDatabase(`SELECT * FROM shares WHERE ShareId = "${req.body.shareId}";`);
           if (db.length !== 0) {
-            await setTableData(`
+            await setDatabaseTable(`
               DELETE FROM
                 shares
               WHERE
@@ -180,7 +181,7 @@ export default async function Handler (req, res) {
           if (req.body.permission === 0 || req.body.permission === 1) {
             const db = await getDatabase(`SELECT * FROM shares WHERE ShareId = "${req.body.shareId}";`);
             if (db.length !== 0) {
-              await setTableData(`
+              await setDatabaseTable(`
                 UPDATE 
                   shares
                 SET 

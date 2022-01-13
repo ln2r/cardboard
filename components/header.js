@@ -1,27 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import { getObjectCount } from '../lib/addons'
+import { getObjectCount } from '../libs/getObjectCount'
+import { setTitleFormat } from '../libs/setTitleFormat'
 
 import styles from '../scss/directory.module.scss'
 
 import ModalObject from './modal'
-
-function setTitleFormat(path){
-  const currentDirectory = path;
-  let links = []
-
-  let currentLink = ``
-  for(let i=0; i<(currentDirectory.length - 1); i++) {
-    currentLink = `${currentLink}/${currentDirectory[i]}`;
-    links.push({
-      name: currentDirectory[i],
-      link: currentLink
-    }) 
-  }
-
-  return links
-}
 
 export default function Header({object, path}) {
   return <div className={styles.header}>
