@@ -174,7 +174,8 @@ function displayContent(object, path) {
         </div>
       </div>
     } else {
-      content = <a className={styles.download} href={`/api/download?path=${path.join("/")}`}>Download File</a>
+      // content = <a className={styles.download} href={`/api/download?path=${path.join("/")}`}>Download File</a>
+      content = ''
     }
 
     return <Row className={styles.object}>
@@ -191,7 +192,7 @@ function displayContent(object, path) {
           :
             <Button className={styles.button} variant="primary" href={`/api/download?path=${path.join("/")}`}>Download</Button>
           }
-          <ModalObject type="create" path={path} button="Add" />
+          {/* <ModalObject type="create" path={path} button="Add" /> */}
           <ModalObject type="share" path={path} button="Share" />
           <ModalObject type="delete" path={path} button="Delete" />
         </div>
