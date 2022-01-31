@@ -1,10 +1,11 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import fetch from 'node-fetch'
 import ModalObject from '../../components/modal'
+import { Container } from 'react-bootstrap'
 
 import Layout, { currentUser, siteTitle } from '../../components/layout'
 import utilStyles from '../../scss/utils.module.scss'
+import styles from '../../scss/layout.module.scss'
 // import { getApiData } from '../../libs/storage'
 
 export async function getServerSideProps() {
@@ -59,26 +60,28 @@ export default function Admin({ synced, shared }) {
       <Head>
         <title>My Cardboard - {siteTitle}</title>
       </Head>
-      <div className={utilStyles.container}>   
-        <section className={utilStyles.section}>
-          <p className={`${utilStyles.meta} ${utilStyles.borderBottom}`}>Shared Files</p>
-          <table className={utilStyles.table}>
+      <Container className="directory">
+        <div className={styles.header}>
+          <h1>
+            Shared Files
+          </h1>
+        </div>
+        <section>
+          <table className="table">
             <thead>
               <tr>
-                <th>Id</th>
-                <th>Object Path</th>
-                <th>Permission</th>
-                <th></th>
+                <th className="header-object-name">Id</th>
+                <th className="header-object-name">Path</th>
+                <th className="header-object-name">Permission</th>
               </tr>
             </thead>
             <tbody>
-            {/* TODO: use modal window for remove and edit shared file */}
             {shared.objects.map(item => {
-              return <tr key={`${item.ShareId}-row`}>
-                <td>{item.ShareId}</td>
-                <td>{item.Object}</td>
-                <td>{(item.Permission == 0)? "Edit" : "View Only"}</td>
-                <td><ModalObject type="permission" path={item} button="🛠" /></td>
+              return <tr key={`${item.name}-row`}>
+                <td className="content-object-name">{item.ShareId}</td>
+                <td className="content-object-name">{item.Object}</td>
+                <td className="content-object-name">{(item.Permission == 0)? "Edit" : "View Only"}</td>
+                <td className="content-object-name"><ModalObject type="permission" path={item} button="🛠" /></td>
               </tr>
             })}
             </tbody>
@@ -94,7 +97,7 @@ export default function Admin({ synced, shared }) {
             </ul>
           </section> 
         }
-      </div>
+      </Container>
     </Layout>
   )
 }
