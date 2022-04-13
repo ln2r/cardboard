@@ -34,23 +34,21 @@ export async function getServerSideProps() {
 function showSyncData(sync) {
   let synced = []
 
-  if (sync.added.length != 0) {
+  if (sync.added.length !== 0) {
     sync.added.map((object, index) => {
       synced.push(<li key={`synced-${index}`}>{`- Added "${object.name}"`}</li>)
     })
   }
 
-  if (sync.removed.length != 0) {
+  if (sync.removed.length !== 0) {
     sync.removed.map((object, index) => {
       synced.push(<li key={`synced-${index}`}>{`- Removed "${object}"`}</li>)
     })
   }
 
-  if (synced.length != 0) {
+  if (synced.length !== 0) {
     return synced
-  } else {
-    return <li><em>No new files added or removed.</em></li>
-  }
+  } 
 }
 
 export default function Admin({ synced, shared }) {
@@ -76,26 +74,31 @@ export default function Admin({ synced, shared }) {
               </tr>
             </thead>
             <tbody>
-            {shared.objects.map(item => {
+            {(shared.objects.length === 0)? 
+              <td className="content-object-name">No Shared Object Found</td>
+            :
+            shared.objects.map(item => {
               return <tr key={`${item.name}-row`}>
                 <td className="content-object-name">{item.ShareId}</td>
                 <td className="content-object-name">{item.Object}</td>
                 <td className="content-object-name">{(item.Permission == 0)? "Edit" : "View Only"}</td>
                 <td className="content-object-name"><ModalObject type="permission" path={item} button="🛠" /></td>
               </tr>
-            })}
+            })
+            }
             </tbody>
           </table>
         </section>
-        {(synced.length == 0)? 
-            "" 
-          : 
+        {(synced.added.length !== 0 && synced.removed.length !== 0)? 
           <section className={`${utilStyles.section} ${utilStyles.sync}`}>
+            <hr />
             <p className={`${utilStyles.meta} ${utilStyles.borderBottom}`}>File Synced</p>
             <ul className={utilStyles.list}>
               {showSyncData(synced)}
             </ul>
-          </section> 
+          </section>
+          :
+            '' 
         }
       </Container>
     </Layout>
