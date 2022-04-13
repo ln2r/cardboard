@@ -8,7 +8,7 @@ import React from 'react'
 import Layout, { currentUser, siteTitle } from '../../../components/layout'
 // import utilStyles from '../../../scss/utils.module.scss'
 import styles from '../../../scss/layout.module.scss'
-import { setTitleFormat } from '../../../libs/addons'
+import { setTitleFormat } from '../../../libs/setTitleFormat'
 
 /**
  * TODO:
