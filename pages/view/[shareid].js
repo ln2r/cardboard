@@ -8,7 +8,7 @@ import utilStyles from '../../scss/utils.module.scss'
 import { Document, Page, pdfjs } from "react-pdf"
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
-import { getObjectCount } from '../../libs/addons'
+import { getObjectCount } from '../../libs/getObjectCount'
 import { getSharedContent } from '../../libs/getSharedContent'
 
 export async function getServerSideProps({ params }) {
