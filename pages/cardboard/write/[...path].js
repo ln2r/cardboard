@@ -42,7 +42,7 @@ export default function Uploader() {
       body: formData
     })    
 
-    // // throw user to the selected folder
+    // throw user to the selected folder
     Router.push(`/${path}`)
   }
 
@@ -60,6 +60,7 @@ export default function Uploader() {
                 return <React.Fragment key={`url-${index}`}><Link href={`/[...path]`} as={`${url.link}`}>{url.name}</Link>&nbsp;/&nbsp;</React.Fragment>
               })} 
               <input type="text" name="filename" />.md
+              <input value={slug.join("/")} name="path" hidden={true} readOnly={true} />
             </h1>
           </div>
           <p>Writing new text file.</p>
